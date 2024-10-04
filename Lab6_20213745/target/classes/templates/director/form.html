@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Formulario de Director</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div th:replace="~{fragments/navbar :: fragment}"></div>
+        <div class="container mt-5">
+            <h1 th:text="${#fields.hasErrors('id') ? 'Editar Director' : 'Nuevo Director'}"></h1>
+
+            <form th:action="@{/directors/save}" th:object="${director}" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}">
+                    <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Número de Teléfono</label>
+                    <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+                    <p class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="nationality" class="form-label">Nacionalidad</label>
+                    <select class="form-select" id="nationality" th:field="*{nationality}">
+                        <option value="" disabled th:if="${#fields.hasErrors('nationality')}" selected>Elige una opción</option>
+                        <option value="USA">Perú</option>
+                        <option value="UK">Argentina</option>
+                        <option value="Canada">Chile</option>
+                        <option value="Francia">Chile</option>
+                        <option value="Peru">Chile</option>
+
+                    </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Director</button>
+            </form>
+        </div>
+    </body>
+</html>
